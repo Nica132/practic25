@@ -88,3 +88,23 @@ void inputData(float arr[], int size) {
     }
 }
 
+int main() {
+    SetConsoleOutputCP(1251);
+    SetConsoleCP(1251);
+
+    int size, mode;
+    float min, max;
+
+    printf("Программа сортировки слиянием\n");
+    printf("Введите размер массива: ");
+    scanf("%d", &size);
+
+    float* arr = (float*)malloc(size * sizeof(float));
+
+    printf("----------------------------\n");
+    printf("Выберите режим ввода данных:\n");
+    printf("1 - Ручной ввод\n");
+    printf("2 - Случайная генерация\n");
+    printf("----------------------------\n");
+    scanf("%d", &mode);
+
