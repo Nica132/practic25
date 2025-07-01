@@ -4,28 +4,21 @@
 #include <time.h>
 #include <Windows.h>
 
-// Функция слияния двух подмассивов для float
 void merge(float arr[], int left, int mid, int right) {
     int i, j, k;
     int n1 = mid - left + 1;
     int n2 = right - mid;
 
-    // Создаем временные массивы с динамическим выделением памяти
     float* leftArr = (float*)malloc(n1 * sizeof(float));
     float* rightArr = (float*)malloc(n2 * sizeof(float));
 
-    if (leftArr == NULL || rightArr == NULL) {
-        printf("Ошибка выделения памяти!\n");
-        exit(1);
-    }
-
-    // Копируем данные во временные массивы
+    // временные массивы
     for (i = 0; i < n1; i++)
         leftArr[i] = arr[left + i];
     for (j = 0; j < n2; j++)
         rightArr[j] = arr[mid + 1 + j];
 
-    // Слияние временных массивов обратно в arr[left..right]
+    //временные массивов обратно
     i = 0; j = 0; k = left;
     while (i < n1 && j < n2) {
         if (leftArr[i] <= rightArr[j]) {
@@ -39,14 +32,14 @@ void merge(float arr[], int left, int mid, int right) {
         k++;
     }
 
-    // Копируем оставшиеся элементы leftArr[], если есть
+
     while (i < n1) {
         arr[k] = leftArr[i];
         i++;
         k++;
     }
 
-    // Копируем оставшиеся элементы rightArr[], если есть
+
     while (j < n2) {
         arr[k] = rightArr[j];
         j++;
@@ -57,7 +50,7 @@ void merge(float arr[], int left, int mid, int right) {
     free(rightArr);
 }
 
-// Функция сортировки слиянием
+
 void mergeSort(float arr[], int left, int right) {
     if (left < right) {
         int mid = left + (right - left) / 2;
@@ -67,7 +60,7 @@ void mergeSort(float arr[], int left, int right) {
     }
 }
 
-// Функция записи массива в файл
+
 void writeToFile(const char* filename, float arr[], int size) {
     FILE* file = fopen(filename, "w");
     if (file == NULL) {
@@ -80,7 +73,7 @@ void writeToFile(const char* filename, float arr[], int size) {
     fclose(file);
 }
 
-// Функция генерации случайных чисел в заданном диапазоне
+
 void generateData(float arr[], int size, float min, float max) {
     srand((unsigned int)time(NULL));
     for (int i = 0; i < size; i++) {
@@ -88,16 +81,16 @@ void generateData(float arr[], int size, float min, float max) {
     }
 }
 
-// Функция ручного ввода данных
+
 void inputData(float arr[], int size) {
-    printf("Введите %d чисел (через пробел или Enter):\n", size);
+    printf("Введите %d чисел:\n", size);
     for (int i = 0; i < size; i++) {
         scanf("%f", &arr[i]);
     }
 }
 
 int main() {
-    SetConsoleOutputCP(1251); 
+    SetConsoleOutputCP(1251);
     SetConsoleCP(1251);
 
     int size, mode;
@@ -108,14 +101,12 @@ int main() {
     scanf("%d", &size);
 
     float* arr = (float*)malloc(size * sizeof(float));
-    if (arr == NULL) {
-        printf("Ошибка выделения памяти!\n");
-        return 1;
-    }
 
+    printf("----------------------------\n");
     printf("Выберите режим ввода данных:\n");
     printf("1 - Ручной ввод\n");
     printf("2 - Случайная генерация\n");
+    printf("----------------------------\n");
     scanf("%d", &mode);
 
     switch (mode) {
@@ -135,18 +126,12 @@ int main() {
         return 1;
     }
 
-    // Запись исходного массива в файл
     writeToFile("input.txt", arr, size);
 
-    // Сортировка массива
     mergeSort(arr, 0, size - 1);
 
-    // Запись отсортированного массива в файл
     writeToFile("output.txt", arr, size);
 
-    // Вывод результатов
-    printf("\nИсходные данные сохранены в input.txt\n");
-    printf("Отсортированные данные сохранены в output.txt\n");
     printf("Результат сортировки:\n");
     for (int i = 0; i < size; i++) {
         printf("%f ", arr[i]);
