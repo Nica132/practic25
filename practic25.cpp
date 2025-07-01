@@ -72,3 +72,19 @@ void writeToFile(const char* filename, float arr[], int size) {
     fclose(file);
 }
 
+
+void generateData(float arr[], int size, float min, float max) {
+    srand((unsigned int)time(NULL));
+    for (int i = 0; i < size; i++) {
+        arr[i] = min + (float)rand() / (float)(RAND_MAX / (max - min));
+    }
+}
+
+
+void inputData(float arr[], int size) {
+    printf("Введите %d чисел:\n", size);
+    for (int i = 0; i < size; i++) {
+        scanf("%f", &arr[i]);
+    }
+}
+
