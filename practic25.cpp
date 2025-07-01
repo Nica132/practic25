@@ -108,3 +108,35 @@ int main() {
     printf("----------------------------\n");
     scanf("%d", &mode);
 
+    switch (mode) {
+    case 1:
+        inputData(arr, size);
+        break;
+    case 2:
+        printf("Введите минимальное значение: ");
+        scanf("%f", &min);
+        printf("Введите максимальное значение: ");
+        scanf("%f", &max);
+        generateData(arr, size, min, max);
+        break;
+    default:
+        printf("Неверный режим!\n");
+        free(arr);
+        return 1;
+    }
+
+    writeToFile("input.txt", arr, size);
+
+    mergeSort(arr, 0, size - 1);
+
+    writeToFile("output.txt", arr, size);
+
+    printf("Результат сортировки:\n");
+    for (int i = 0; i < size; i++) {
+        printf("%f ", arr[i]);
+    }
+    printf("\n");
+
+    free(arr);
+    return 0;
+}
