@@ -60,4 +60,15 @@ void mergeSort(float arr[], int left, int right) {
     }
 }
 
+void writeToFile(const char* filename, float arr[], int size) {
+    FILE* file = fopen(filename, "w");
+    if (file == NULL) {
+        printf("Ошибка открытия файла!\n");
+        return;
+    }
+    for (int i = 0; i < size; i++) {
+        fprintf(file, "%f ", arr[i]);
+    }
+    fclose(file);
+}
 
